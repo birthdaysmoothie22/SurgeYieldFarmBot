@@ -1,0 +1,8 @@
+{
+    "bnb-xusd": {
+        "address": "0x579aaF9882A1941885fADa7A6243cEACf3037659",
+		"symbol": "BNB - XUSD",
+		"icon": "https://cdn.discordapp.com/attachments/892852181802291215/907467628463947776/xusd-bnb-farm.png",
+		"color": 2274475
+    }
+}
