@@ -100,6 +100,3 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 			return json.dumps(output)
 	else:
 		raise ValueError("Invalid farm supplied: "+farm)
-
-
-print(fetch_yield_farm_rewards('0xAEF57C7b7De8887A97d4Fc50E5aBa573236F292d', 'bnb-xusd'))
