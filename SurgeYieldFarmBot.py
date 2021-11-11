@@ -61,10 +61,9 @@ def createCustomHelpEmbedMessage():
 		title="Available SurgeYieldFarmBot Commands",
 		description="Here are all the available commands for the SurgeYieldFarmBot.", 
 		color=0x22B4AB)
-	embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/892852181802291215/898293624528338944/Profit_Checker_3.png")
-	embed.add_field(name="rewards", value="Calculates your overall Surge Token value.  Requires you to pick a token and provide your public wallet address.", inline=False)
-	embed.add_field(name="rewards_manual, calc_manual", value="Calculates your overall Surge Token value.  You must provide the token you wish to caluclate and your public wallet address.  Example: !calculate_manual SurgeADA 0x00a...", inline=False)
-
+	embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/892852181802291215/908438175653957682/surge_farm_bot_icon.png")
+	embed.add_field(name="rewards", value="Calculates your overall Surge Yield Farm rewards.  Requires you to pick a token and provide your public wallet address.", inline=False)
+	embed.add_field(name="remove_saved", value="Remopves your public wallet address from the saved wallets list", inline=False)
 	return embed
 
 async def calculateYieldFarmRewards(ctx, farm, wallet_address):
@@ -158,5 +157,11 @@ async def remove_saved(ctx):
 		await ctx.author.send("You are not in the stored wallet list.")
 		
 	return
+
+@bot.command(aliases=['Help'])
+@commands.dm_only()
+async def help(ctx):
+	help_embed = createCustomHelpEmbedMessage()
+	await ctx.author.send(embed=help_embed)
 
 bot.run(SURGE_YIELD_FARM_BOT_KEY)
