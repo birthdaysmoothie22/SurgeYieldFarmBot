@@ -62,7 +62,7 @@ def createCustomHelpEmbedMessage():
 		description="Here are all the available commands for the SurgeYieldFarmBot.", 
 		color=0x22B4AB)
 	embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/892852181802291215/908438175653957682/surge_farm_bot_icon.png")
-	embed.add_field(name="$rewards", value="Calculates your overall Surge Yield Farm rewards.  Requires you to pick a token and provide your public wallet address.", inline=False)
+	embed.add_field(name="$rewards", value="Calculates your overall Surge Yield Farm rewards.  Requires you to provide your public wallet address.", inline=False)
 	embed.add_field(name="$remove_saved", value="Remopves your public wallet address from the saved wallets list", inline=False)
 	return embed
 
