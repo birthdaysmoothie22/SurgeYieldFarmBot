@@ -58,6 +58,8 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 		farm_balance = float(web3.fromWei(contract.functions.balanceOf(wallet_address).call(), 'ether'))
 
 		if (farm_balance > 0):
+			current_xusd_price = float(web3.fromWei(xusd_contract.functions.calculatePrice().call(), 'ether'))
+
 			output[farm]['balance'] = farm_balance
 
 			redeemable_value_result = contract.functions.getRedeemableValue(wallet_address).call()
@@ -67,7 +69,7 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 			output[farm]['xusd_value'] = xusd_value
 			output[farm]['bnb_value'] = bnb_value
 
-			lp_farm_xusd = xusd_value * float(web3.fromWei(xusd_contract.functions.calculatePrice().call(), 'ether'))
+			lp_farm_xusd = xusd_value * current_xusd_price
 
 			response = cg.get_price(ids='binancecoin', vs_currencies='usd')
 			lp_farm_bnb = bnb_value * response['binancecoin']['usd']
@@ -90,6 +92,8 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 			pending_rewards = float(web3.fromWei(contract.functions.pendingRewards(wallet_address).call(), 'ether'))
 
 			output[farm]['pending_rewards'] = pending_rewards
+			prending_rewards_usd = pending_rewards * current_xusd_price
+			output[farm]['pending_rewards_in_usd'] = f'{prending_rewards_usd:.2f}'
 
 			total_rewards = float(web3.fromWei(contract.functions.totalRewardsClaimedForUser(wallet_address).call(), 'ether'))
 

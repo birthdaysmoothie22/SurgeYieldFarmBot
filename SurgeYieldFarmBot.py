@@ -47,6 +47,7 @@ def createRewardsResultEmbedMessage(farm, result):
 			time_until_next_claim = "Now"
 		embed.add_field(name="**Time Until Next Claim**", value=time_until_next_claim, inline=False)
 		embed.add_field(name="**Pending Rewards (xUSD)**", value=str(data[farm]['pending_rewards']), inline=False)
+		embed.add_field(name="**Pending Rewards (USD)**", value="$"+str(data[farm]['pending_rewards_in_usd']), inline=False)
 		embed.add_field(name="**Total Rewards Claimed (xUSD)**", value=str(data[farm]['total_rewards']), inline=False)
 		
 		embed_disclaimer_text ="Pricing data powered by Binance and Coingecko APIs"
@@ -97,20 +98,65 @@ async def on_ready():
 @bot.command(aliases=['Rewards'])
 @commands.dm_only()
 async def rewards(ctx):
-	message = 'Please enter your public BEP-20 wallet address:\n'
-	await ctx.author.send(message)
-
-	def check_message(msg):
-		return msg.author == ctx.author and len(msg.content) > 0
-
-	try:
-		wallet_address = await bot.wait_for("message", check=check_message, timeout = 30) # 30 seconds to reply
-	except asyncio.TimeoutError:
-		await ctx.send("Sorry, you either didn't reply with your wallet address or didn't reply in time!")
-		return
+	with open(ROOT_PATH+"/stored_wallets.json", "r") as stored_wallet_list_json:
+		stored_wallet_list = json.load(stored_wallet_list_json)
 	
-	await calculateYieldFarmRewards(ctx, 'bnb-xusd', wallet_address.content)
-	#@todo give the user the option to pick another token without asking them for their wallet again
+	if str(ctx.author.id) not in stored_wallet_list: 
+		message = 'Please enter your public BEP-20 wallet address:\n'
+		await ctx.author.send(message)
+
+		def check_message(msg):
+			return msg.author == ctx.author and len(msg.content) > 0
+
+		try:
+			wallet_address_response = await bot.wait_for("message", check=check_message, timeout = 30) # 30 seconds to reply
+			wallet_address = wallet_address_response.content
+		except asyncio.TimeoutError:
+			await ctx.send("Sorry, you either didn't reply with your wallet address or didn't reply in time!")
+			return
+	else:
+		wallet_address = stored_wallet_list[str(ctx.author.id)]
+	
+	await calculateYieldFarmRewards(ctx, 'bnb-xusd', wallet_address)
+
+	if str(ctx.author.id) not in stored_wallet_list:
+		try:
+			message2 = 'Do you want me to save your public BEP-20 wallet address for next time [Y/N]?\n'
+			await ctx.author.send(message2)
+
+			def check_message2(msg):
+				return msg.author == ctx.author and len(msg.content) > 0
+
+			store_wallet_response = await bot.wait_for("message", check=check_message2, timeout = 30) # 30 seconds to reply
+			acceptable_responses = ['y','Y','yes','Yes']
+			if store_wallet_response.content.lower() in acceptable_responses:
+				stored_wallet_list[ctx.author.id] = wallet_address.content
+
+				with open(ROOT_PATH+"/stored_wallets.json", "w") as stored_wallet_list_json:
+					json.dump(stored_wallet_list, stored_wallet_list_json)
+				
+				await ctx.author.send("Thank you, you've been added to the stored wallet list.")
+		except asyncio.TimeoutError:
+			await ctx.send("Sorry, you either didn't reply in time!")
+			return
+
+	return
+
+@bot.command(aliases=['Remove_saved'])
+@commands.dm_only()
+async def remove_saved(ctx):
+	with open(ROOT_PATH+"/stored_wallets.json", "r") as stored_wallet_list_json:
+		stored_wallet_list = json.load(stored_wallet_list_json)
+	
+	if str(ctx.author.id) in stored_wallet_list:
+		stored_wallet_list.pop(str(ctx.author.id))
+		with open(ROOT_PATH+"/stored_wallets.json", "w") as stored_wallet_list_json:
+			json.dump(stored_wallet_list, stored_wallet_list_json)
+
+		await ctx.author.send("You have been removed from the stored wallet list.")
+	else:
+		await ctx.author.send("You are not in the stored wallet list.")
+		
 	return
 
 bot.run(SURGE_YIELD_FARM_BOT_KEY)
