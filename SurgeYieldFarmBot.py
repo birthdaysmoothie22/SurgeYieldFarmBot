@@ -130,7 +130,7 @@ async def rewards(ctx):
 			store_wallet_response = await bot.wait_for("message", check=check_message2, timeout = 30) # 30 seconds to reply
 			acceptable_responses = ['y','Y','yes','Yes']
 			if store_wallet_response.content.lower() in acceptable_responses:
-				stored_wallet_list[ctx.author.id] = wallet_address.content
+				stored_wallet_list[ctx.author.id] = wallet_address
 
 				with open(ROOT_PATH+"/stored_wallets.json", "w") as stored_wallet_list_json:
 					json.dump(stored_wallet_list, stored_wallet_list_json)
