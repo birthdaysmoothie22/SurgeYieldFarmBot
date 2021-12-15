@@ -1,8 +1,57 @@
 {
-    "bnb-xusd": {
-        "address": "0x579aaF9882A1941885fADa7A6243cEACf3037659",
-		"symbol": "BNB - XUSD",
+	"bnb-xusd-v1": {
+        "address": "0x579aaf9882a1941885fada7a6243ceacf3037659",
+		"symbol": "BNB - xUSD - V1",
 		"icon": "https://cdn.discordapp.com/attachments/892852181802291215/907467628463947776/xusd-bnb-farm.png",
-		"color": 2274475
+		"color": 2274475,
+		"split_rewards": false,
+		"paired_asset_wei_unit": "ether",
+		"is_paired_asset_surge_token": false,
+		"paired_asset": "BNB",
+		"values_table": "surge_bnb"
+    },
+	"bnb-xusd": {
+        "address": "0x6789432a7494DCC5061129e369fb3FF801121123",
+		"symbol": "BNB - xUSD",
+		"icon": "https://cdn.discordapp.com/attachments/892852181802291215/907467628463947776/xusd-bnb-farm.png",
+		"color": 2274475,
+		"split_rewards": false,
+		"paired_asset_wei_unit": "ether",
+		"is_paired_asset_surge_token": false,
+		"paired_asset": "BNB",
+		"values_table": "surge_bnb"
+    },
+	"sbtc-xusd": {
+        "address": "0xB51EA53058D4f548CbabFa7C639725EEf494e13d",
+		"symbol": "SBTC - xUSD",
+		"icon": "https://cdn.discordapp.com/attachments/908408056482758727/918871529280901161/surge_btc_farm_icon.png",
+		"color": 2274475,
+		"split_rewards": true,
+		"paired_asset_wei_unit": "ether",
+		"is_paired_asset_surge_token": true,
+		"paired_asset": "SBTC",
+		"values_table": "surge_btc"
+    },
+	"sada-xusd": {
+        "address": "0xb7207B3e14Eb50aA02A5AD76941e61a4EeF47b4b",
+		"symbol": "SADA - xUSD",
+		"icon": "https://cdn.discordapp.com/attachments/908408056482758727/918871513640366080/surge_ada_farm_icon.png",
+		"color": 2274475,
+		"split_rewards": true,
+		"paired_asset_wei_unit": "ether",
+		"is_paired_asset_surge_token": true,
+		"paired_asset": "SADA",
+		"values_table": "surge_ada"
+    },
+	"suseless-xusd": {
+        "address": "0x0cD3A3C1e1F246f13e45b4b0eD07C8De355a54F4",
+		"symbol": "SUSELESS - xUSD",
+		"icon": "https://cdn.discordapp.com/attachments/908408056482758727/918871496422723664/surge_useless_farm_icon.png",
+		"color": 2274475,
+		"split_rewards": true,
+		"paired_asset_wei_unit": "ether",
+		"is_paired_asset_surge_token": true,
+		"paired_asset": "SUSELESS",
+		"values_table": "surge_useless"
     }
 }
