@@ -112,10 +112,6 @@ async def rewards(ctx):
 						value="all"
 					),
 					SelectOption(
-						label="BNB - xUSD V1", 
-						value="bnb-xusd-v1"
-					),
-					SelectOption(
 						label="BNB - xUSD", 
 						value="bnb-xusd"
 					),

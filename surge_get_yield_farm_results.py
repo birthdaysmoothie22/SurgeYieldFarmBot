@@ -51,10 +51,17 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 		contract_address = surge_yield_farms[farm]['address']
 		contract_address = web3.toChecksumAddress(contract_address)
 
+		farm_lp_address = surge_yield_farms[farm]['lp_address']
+		farm_lp_address = web3.toChecksumAddress(farm_lp_address)
+
 		with open(ROOT_PATH+"/farm_abis/"+farm+"_farm_abi.json", "r") as farm_abi:
 			contract_abi = json.load(farm_abi)
 
+		with open(ROOT_PATH+"/farm_lp_abis/"+farm+"_farm_lp_abi.json", "r") as farm_lp_abi_json:
+			farm_lp_abi = json.load(farm_lp_abi_json)
+
 		contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+		farm_lp_contract = web3.eth.contract(address=farm_lp_address, abi=farm_lp_abi)
 
 		farm_balance = float(web3.fromWei(contract.functions.balanceOf(wallet_address).call(), 'ether'))
 
@@ -73,15 +80,20 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 
 			output[farm]['balance'] = farm_balance
 
+			farm_total_supply = float(web3.fromWei(contract.functions.totalSupply().call(), 'ether'))
+			lp_total_supply = float(web3.fromWei(farm_lp_contract.functions.totalSupply().call(), 'ether'))
+
 			redeemable_value_result = contract.functions.getRedeemableValue(wallet_address).call()
 			xusd_value = float(web3.fromWei(redeemable_value_result[0], 'ether'))
-			output[farm]['xusd_value'] = xusd_value
+			output[farm]['xusd_value'] = xusd_value * (lp_total_supply/farm_total_supply)
 
 			if surge_yield_farms[farm]["is_paired_asset_surge_token"]:
 				paired_asset_value = redeemable_value_result[1]
+				paired_asset_value = paired_asset_value * (lp_total_supply/farm_total_supply)
 				output[farm]['paired_asset_value'] = f'{paired_asset_value:,.0f}'
 			else:
 				paired_asset_value = float(web3.fromWei(redeemable_value_result[1], 'ether'))
+				paired_asset_value = paired_asset_value * (lp_total_supply/farm_total_supply)
 				output[farm]['paired_asset_value'] = paired_asset_value
 
 			lp_farm_xusd_usd_value = xusd_value * current_xusd_price

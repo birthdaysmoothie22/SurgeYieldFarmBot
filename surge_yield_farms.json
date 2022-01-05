@@ -1,15 +1,4 @@
 {
-	"bnb-xusd-v1": {
-        "address": "0x579aaf9882a1941885fada7a6243ceacf3037659",
-		"symbol": "BNB - xUSD - V1",
-		"icon": "https://cdn.discordapp.com/attachments/892852181802291215/907467628463947776/xusd-bnb-farm.png",
-		"color": 2274475,
-		"split_rewards": false,
-		"paired_asset_wei_unit": "ether",
-		"is_paired_asset_surge_token": false,
-		"paired_asset": "BNB",
-		"values_table": "surge_bnb"
-    },
 	"bnb-xusd": {
         "address": "0x6789432a7494DCC5061129e369fb3FF801121123",
 		"symbol": "BNB - xUSD",
@@ -19,7 +8,8 @@
 		"paired_asset_wei_unit": "ether",
 		"is_paired_asset_surge_token": false,
 		"paired_asset": "BNB",
-		"values_table": "surge_bnb"
+		"values_table": "surge_bnb",
+		"lp_address": "0x839b8fFd6329Bdc7DC5bBaFFFbdF18cEd75A4C96"
     },
 	"sbtc-xusd": {
         "address": "0xB51EA53058D4f548CbabFa7C639725EEf494e13d",
@@ -30,7 +20,8 @@
 		"paired_asset_wei_unit": "ether",
 		"is_paired_asset_surge_token": true,
 		"paired_asset": "SBTC",
-		"values_table": "surge_btc"
+		"values_table": "surge_btc",
+		"lp_address": "0xF3B1FA8c271eE1017D58C84860a968Fc89c3F828"
     },
 	"sada-xusd": {
         "address": "0xb7207B3e14Eb50aA02A5AD76941e61a4EeF47b4b",
@@ -41,7 +32,8 @@
 		"paired_asset_wei_unit": "ether",
 		"is_paired_asset_surge_token": true,
 		"paired_asset": "SADA",
-		"values_table": "surge_ada"
+		"values_table": "surge_ada",
+		"lp_address": "0x9270a88948e3777cc2f1d68b3a5f00599b91fb09"
     },
 	"suseless-xusd": {
         "address": "0x0cD3A3C1e1F246f13e45b4b0eD07C8De355a54F4",
@@ -52,6 +44,7 @@
 		"paired_asset_wei_unit": "ether",
 		"is_paired_asset_surge_token": true,
 		"paired_asset": "SUSELESS",
-		"values_table": "surge_useless"
+		"values_table": "surge_useless",
+		"lp_address": "0xd68cf27584f73c42d60a16910cae8a0ede6b4b99"
     }
 }
