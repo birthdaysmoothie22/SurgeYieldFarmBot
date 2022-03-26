@@ -122,10 +122,6 @@ async def rewards(ctx):
 					SelectOption(
 						label="SADA - xUSD", 
 						value="sada-xusd"
-					),
-					SelectOption(
-						label="SUSELESS - xUSD", 
-						value="suseless-xusd"
 					)
 				]
 			)

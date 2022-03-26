@@ -102,7 +102,7 @@ def fetch_yield_farm_rewards(wallet_address, farm):
 			mycursor.execute(sql)
 			myresult = mycursor.fetchall()
 
-			current_token_value_data = json.loads(myresult[0][2])
+			current_token_value_data = json.loads(myresult[0][3])
 			current_token_value_data['token_value'] = float(current_token_value_data['token_value'])
 			current_token_value_data['underlying_asset_value'] = float(current_token_value_data['underlying_asset_value'])
 
